@@ -1,0 +1,42 @@
+<div class="mb-4 p-8">
+  <p-card>
+    <ng-template #header>
+      <h1 class="pl-4 pt-4 text-2xl">
+        {{ isLoginForm() ? 'Login' : 'Sign-in'}}
+      </h1>
+    </ng-template>
+    <form [formGroup]="authForm" (submit)="onSubmit()">
+      @if (!isLoginForm()) {
+      <div class="flex flex-col gap-1 mb-5">
+        <label class="text-sm mb-0" for="fullname">Full name</label>
+        <input pInputText id="fullname" variant="filled" pSize="small" formControlName="fullName" />
+      </div>
+      }
+      <div class="flex flex-col gap-1 mb-5">
+        <label class="text-sm mb-0" for="email">Email</label>
+        <input pInputText id="email" variant="filled" pSize="small" formControlName="email" />
+      </div>
+      <div class="flex flex-col gap-1 mb-5">
+        <label class="text-sm mb-0" for="password">Password</label>
+        <p-iconfield>
+          <input class="w-full" type="text" pInputText pSize="small" variant="filled" [type]="inputType()" id="password"
+            formControlName="password" />
+          <p-inputicon [styleClass]="styleClass()" (click)="onTogglePassword()" />
+        </p-iconfield>
+      </div>
+      <div class="mb-6">
+        <p-button type="submit" class="w-full inline-block" [disabled]="authForm.invalid">
+          <span pButtonLabel>{{ isLoginForm() ? 'Login' : 'Sign-in' }}</span>
+        </p-button>
+      </div>
+      <p class="flex gap-1">
+        {{ isLoginForm() ? 'Need to create an account?' : 'Already have account?'}}
+        <button class="font-semibold underline" type="button" (click)="onChangeForm()">{{ isLoginForm() ? 'Sign-in' :
+          'Login'}}</button>
+      </p>
+    </form>
+    @if (errorMessage()) {
+    <p class="mt-4 text-red-800 text-center">{{ errorMessage() | titlecase }}</p>
+    }
+  </p-card>
+</div>
