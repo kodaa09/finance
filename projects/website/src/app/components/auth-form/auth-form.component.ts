@@ -24,6 +24,7 @@ export class AuthFormComponent implements OnInit {
   inputType = signal('password');
   isLoginForm = signal(true);
   errorMessage = signal('');
+  isLoading = signal(false);
   authForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -41,6 +42,8 @@ export class AuthFormComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.isLoading.set(true);
+
     const email = this.authForm.value.email ?? '';
     const password = this.authForm.value.password ?? '';
     const fullName = this.authForm.value.fullName ?? '';
@@ -68,11 +71,13 @@ export class AuthFormComponent implements OnInit {
         }
       }
     }
+    this.isLoading.set(false);
   }
 
   onChangeForm() {
     this.authForm.reset();
     this.isLoginForm.update((oldValue) => !oldValue);
+    this.errorMessage.set('');
   }
 
   _formatErrorMessage(message: string): string {

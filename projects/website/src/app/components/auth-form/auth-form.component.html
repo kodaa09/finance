@@ -27,6 +27,9 @@
       <div class="mb-6">
         <p-button type="submit" class="w-full inline-block" [disabled]="authForm.invalid">
           <span pButtonLabel>{{ isLoginForm() ? 'Login' : 'Sign-in' }}</span>
+          @if (isLoading()) {
+          <i class="pi pi-spin pi-spinner"></i>
+          }
         </p-button>
       </div>
       <p class="flex gap-1">
