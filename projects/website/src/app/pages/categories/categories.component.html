@@ -4,7 +4,7 @@
     <app-add-category (addCategory)="onUpdateCategories()" />
   </div>
   @for (category of categories(); track $index) {
-  <app-category [category]="category" (deleteCategory)="onUpdateCategories()" />
+  <app-category [category]="category" (deleteCategory)="onUpdateCategories()" (updateCategory)="onUpdateCategories()" />
   } @empty {
   <p>No categories yet</p>
   }

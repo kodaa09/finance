@@ -7,8 +7,8 @@
           <h2 class="text-xl">{{ category().name }}</h2>
         </div>
         <div class="card flex justify-center">
-          <p-menu #menu [model]="items" [popup]="true" />
-          <p-button (click)="menu.toggle($event)" variant="text" icon="pi pi-ellipsis-v" />
+          <app-update-category [category]="category()" (updateCategory)="onUpdateCategory()" />
+          <p-button type="button" icon="pi pi-trash" variant="text" (onClick)="onDeleteCategory(category().id)" />
         </div>
       </div>
     </ng-template>

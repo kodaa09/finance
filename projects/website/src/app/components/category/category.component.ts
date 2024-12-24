@@ -3,13 +3,13 @@ import { Card } from 'primeng/card';
 import { ProgressBar } from 'primeng/progressbar';
 import { CategoryInterface } from '../../types/category.type.js';
 import { CommonModule } from '@angular/common';
-import { Menu } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { CategoryService } from '../../services/category.service.js';
+import { UpdateCategoryComponent } from '../update-category/update-category.component';
 
 @Component({
   selector: 'app-category',
-  imports: [Card, ProgressBar, CommonModule, Menu, ButtonModule],
+  imports: [Card, ProgressBar, CommonModule, ButtonModule, UpdateCategoryComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
 })
@@ -17,24 +17,9 @@ export class CategoryComponent {
   private _categoryService = inject(CategoryService);
   category = input.required<CategoryInterface>();
   deleteCategory = output();
+  updateCategory = output();
   remainning = computed(() => this.category().amountMax - this.category().spent);
   percentage = computed(() => (this.category().spent / this.category().amountMax) * 100);
-  items = [
-    {
-      label: 'Update',
-      icon: 'pi pi-pencil',
-      command: () => {
-        console.log('Update');
-      },
-    },
-    {
-      label: 'Delete',
-      icon: 'pi pi-trash',
-      command: () => {
-        this.onDeleteCategory(this.category().id);
-      },
-    },
-  ];
 
   async onDeleteCategory(id: string) {
     try {
@@ -43,5 +28,9 @@ export class CategoryComponent {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  onUpdateCategory() {
+    this.updateCategory.emit();
   }
 }

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, query, updateDoc, where } from '@angular/fire/firestore';
 import { CategoryInterface, CreateCategory } from '../types/category.type.js';
 import { AuthService } from './auth.service.js';
 import { Observable } from 'rxjs';
@@ -22,14 +22,23 @@ export class CategoryService {
   }
 
   async addCategory(payload: CreateCategory) {
-    if (typeof payload.userId === 'string') {
-      payload.userId = doc(this._firestore, `users/${payload.userId}`);
-    }
+    this._checkUserIdType(payload);
     return await addDoc(this._categoryCollection, payload);
   }
 
   async deleteCategory(id: string) {
     return await deleteDoc(doc(this._firestore, 'categories', id));
+  }
+
+  async updateCategory(id: string, payload: Partial<CategoryInterface>) {
+    this._checkUserIdType(payload);
+    return await updateDoc(doc(this._firestore, 'categories', id), payload);
+  }
+
+  _checkUserIdType(payload: Partial<CategoryInterface>) {
+    if (typeof payload.userId === 'string') {
+      payload.userId = doc(this._firestore, `users/${payload.userId}`);
+    }
   }
 
   getColors() {
