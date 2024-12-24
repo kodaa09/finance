@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,7 +14,7 @@ import { CategoryInterface, CreateCategory } from '../../types/category.type.js'
   templateUrl: './update-category.component.html',
   styleUrl: './update-category.component.css',
 })
-export class UpdateCategoryComponent {
+export class UpdateCategoryComponent implements OnInit {
   private _categoryService = inject(CategoryService);
   private _authService = inject(AuthService);
   category = input<CategoryInterface>();
