@@ -43,6 +43,7 @@ export class AddCategoryComponent {
       await this._categoryService.addCategory(category);
       this.updateCategories.emit(true);
       this.isVisible.set(false);
+      this.addCategoryForm.reset();
     } catch (error) {
       console.log(error);
     }
