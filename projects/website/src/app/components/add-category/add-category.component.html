@@ -1,0 +1,43 @@
+<p-button type="button" (click)="showDialog()" label="Add category" />
+<p-dialog [modal]="true" [visible]="isVisible()" closable="false" [style]="{ width: '25rem' }" modal="true">
+  <ng-template #header>
+    <div class="flex items-center justify-between w-full">
+      <h2 class="text-xl">Add a category</h2>
+      <button type="button" (click)="isVisible.set(false)">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </ng-template>
+  <form [formGroup]="addCategoryForm" (submit)="onAddCategory()">
+    <div class="flex flex-col gap-1 mb-5">
+      <label class="text-sm mb-0" for="name">Name</label>
+      <input pInputText id="name" variant="filled" pSize="small" formControlName="name" />
+    </div>
+    <div class="flex flex-col gap-1 mb-5">
+      <label class="text-sm mb-0">Color</label>
+      <p-select [options]="colors" optionLabel="name" variant="filled" [showClear]="true" placeholder="Select a color"
+        class="w-full" formControlName="color" scrollHeight="125px">
+        <ng-template #selectedItem let-selectedOption>
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" [style.backgroundColor]="selectedOption.code"></span>
+            <div>{{ selectedOption.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template #item let-color>
+          <div class="flex items-center gap-2">
+            <span class="h-3 w-3 rounded-full" [style.backgroundColor]="color.code"></span>
+            <div>{{ color.name }}</div>
+          </div>
+        </ng-template>
+      </p-select>
+    </div>
+    <div class="flex flex-col gap-1 mb-5">
+      <label class="text-sm mb-0" for="amountMax">Amount max</label>
+      <input pInputText id="amountMax" variant="filled" pSize="small" formControlName="amountMax" />
+    </div>
+    <div class="flex justify-end gap-2">
+      <p-button type="button" label="Cancel" severity="secondary" (click)="isVisible.set(false)" />
+      <p-button type="submit" label="Add category" />
+    </div>
+  </form>
+</p-dialog>

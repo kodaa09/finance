@@ -22,10 +22,21 @@ export class CategoryService {
   }
 
   async addCategory(payload: CreateCategory) {
+    if (typeof payload.userId === 'string') {
+      payload.userId = doc(this._firestore, `users/${payload.userId}`);
+    }
     return await addDoc(this._categoryCollection, payload);
   }
 
   getColors() {
-    return ['white', 'red', 'purple', 'black', 'yellow', 'blue', 'green', 'brown', 'orange', 'pink'];
+    return [
+      { name: 'Orange', code: '#fb923c' },
+      { name: 'Red', code: '#f87171' },
+      { name: 'Amber', code: '#fbbf24' },
+      { name: 'Yellow', code: '#facc15' },
+      { name: 'Green', code: '#4ade80' },
+      { name: 'Emerald', code: '#34d399' },
+      { name: 'Teal', code: '#2dd4bf' },
+    ];
   }
 }

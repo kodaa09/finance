@@ -1,0 +1,39 @@
+<div class="mb-10">
+  <p-card>
+    <ng-template #header>
+      <div class="flex items-center justify-between px-4 pt-4">
+        <div class="flex items-center gap-1">
+          <span class="h-3 w-3 rounded-full" [style.backgroundColor]="category().color"></span>
+          <h2 class="text-xl">{{ category().name }}</h2>
+        </div>
+        <div class="card flex justify-center">
+          <p-menu #menu [model]="items" [popup]="true" />
+          <p-button (click)="menu.toggle($event)" variant="text" icon="pi pi-ellipsis-v" />
+        </div>
+      </div>
+    </ng-template>
+    <div>
+      <div class="mb-5">
+        <p class="m-0 mb-2 text-sm">Maximum of ${{ category().amountMax }}</p>
+        <p-progressbar [value]="percentage()" showValue="false" [color]="category().color" />
+      </div>
+      <div class="flex items-center">
+        <div class="w-6/12 relative">
+          <div
+            class="pl-3 after:content-[''] after:absolute after:w-[5px] after:h-full after:left-0 after:bottom-0 after:rounded-lg"
+            [ngClass]="'after:bg-' + category().color + '-100'">
+            <p>Spent</p>
+            <p>${{ category().spent }}</p>
+          </div>
+        </div>
+        <div class="w-6/12 relative">
+          <div
+            class="pl-3 after:content-[''] after:absolute after:w-[5px] after:h-full after:left-0 after:bottom-0 after:rounded-lg after:bg-slate-300">
+            <p>Remainning</p>
+            <p>${{ remainning() }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

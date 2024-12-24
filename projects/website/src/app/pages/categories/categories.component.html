@@ -1,1 +1,11 @@
-<p>categories works!</p>
+<div class="container mx-auto px-4 mt-8">
+  <div class="flex items-center justify-between mb-12">
+    <h1 class="text-3xl">Categories</h1>
+    <app-add-category (updateCategories)="onUpdateCategories()" />
+  </div>
+  @for (category of categories(); track $index) {
+  <app-category [category]="category" />
+  } @empty {
+  <p>No categories yet</p>
+  }
+</div>
