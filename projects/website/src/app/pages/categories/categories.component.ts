@@ -22,6 +22,10 @@ export class CategoriesComponent {
   categories = computed(() => this.categoriesResource.value());
 
   onUpdateCategories() {
+    this._updateCategories();
+  }
+
+  _updateCategories() {
     this.categoriesResource.reload();
   }
 }

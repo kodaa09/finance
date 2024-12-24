@@ -19,7 +19,7 @@ export class AddCategoryComponent {
   private _authService = inject(AuthService);
   colors = this._categoryService.getColors();
   isVisible = signal(false);
-  updateCategories = output<boolean>();
+  addCategory = output<boolean>();
 
   addCategoryForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -41,7 +41,7 @@ export class AddCategoryComponent {
 
     try {
       await this._categoryService.addCategory(category);
-      this.updateCategories.emit(true);
+      this.addCategory.emit(true);
       this.isVisible.set(false);
       this.addCategoryForm.reset();
     } catch (error) {

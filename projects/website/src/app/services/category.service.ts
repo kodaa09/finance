@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, query, where } from '@angular/fire/firestore';
 import { CategoryInterface, CreateCategory } from '../types/category.type.js';
 import { AuthService } from './auth.service.js';
 import { Observable } from 'rxjs';
@@ -26,6 +26,10 @@ export class CategoryService {
       payload.userId = doc(this._firestore, `users/${payload.userId}`);
     }
     return await addDoc(this._categoryCollection, payload);
+  }
+
+  async deleteCategory(id: string) {
+    return await deleteDoc(doc(this._firestore, 'categories', id));
   }
 
   getColors() {
